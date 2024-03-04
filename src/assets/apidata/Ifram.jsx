@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function Ifram() {
   return (
-    <div>Ifram</div>
-  )
+    <div className="centpays-container">
+      <h2>Iframe Payment Integration</h2>
+    </div>
+  );
 }
 
-export default Ifram
+export default Ifram;

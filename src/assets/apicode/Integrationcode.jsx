@@ -18,7 +18,7 @@ NOTE: In case if you need multiple MIDs then please add one more parameter with 
 
 {
   "name":"andrew lincoln",
-  "email":"Oceana@mail.com",
+  "mailto:email":"oceana@mail.com",
   "phone":"9876543112",
   "amount":"500",
   "currency":"USD",
@@ -166,10 +166,10 @@ function Integrationcode() {
         </div>
       </div>
 
-      <div className="codeBlock">
-        <div className="codeBlock-header">
+      <div className="textBlock">
+        <div className="textBlock-header">
           <h1>Response</h1>
-          <i
+          {/* <i
             className="fa-regular fa-clipboard"
             onClick={() => handleCopyClick("BaseURL")}
           ></i>
@@ -180,9 +180,10 @@ function Integrationcode() {
                 Copied!
               </p>
             </span>
-          )}
+          )} */}
         </div>
-        <div className="codeBlock-body" ref={codeBlockRef}>
+
+        <div className="textBlock-body" ref={codeBlockRef}>
           <pre>
             <SyntaxHighlighter
               language="json"
@@ -195,10 +196,10 @@ function Integrationcode() {
         </div>
       </div>
 
-      <div className="codeBlock">
-        <div className="codeBlock-header">
+      <div className="textBlock">
+        <div className="textBlock-header">
           <h1>Callback Response</h1>
-          <i
+          {/* <i
             className="fa-regular fa-clipboard"
             onClick={() => handleCopyClick("BaseURL")}
           ></i>
@@ -209,9 +210,9 @@ function Integrationcode() {
                 Copied!
               </p>
             </span>
-          )}
+          )} */}
         </div>
-        <div className="codeBlock-body" ref={codeBlockRef}>
+        <div className="textBlock-body" ref={codeBlockRef}>
           <pre>
             <SyntaxHighlighter
               language="json"

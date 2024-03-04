@@ -104,6 +104,17 @@ function P2P() {
             <br /> <br />A sample callback response is provided for the
             reference.
           </p>
+          <br /> <br />
+          <br />
+          <p>
+            <b>NOTE:</b> In instances where a transaction remains incomplete,
+            where the customer has abandoned the transaction midway without
+            redirection or receiving callbacks and webhooks, it is necessary to
+            utilize our GET TRANSACTION STATUS API.
+            <br /> This API facilitates the update of transaction information on
+            your end, ensuring accurate and up-to-date records for such
+            transactions.
+          </p>
         </section>
       </div>
     </>

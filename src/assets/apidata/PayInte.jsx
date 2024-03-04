@@ -6,7 +6,6 @@ function PayInte() {
       <div className="centpays-container">
         <h2>Payments</h2>
         <div className="centpays-container-intro">
-          {/* <div className="payment-Integraion-body-intro"> */}
           <p>
             Enable your merchant account to receive payments on your terms by
             leveraging our diverse payment options. Seamlessly accept funds from
@@ -104,6 +103,17 @@ function PayInte() {
             </a>
             <br /> <br />A sample callback response is provided for the
             reference.
+          </p>
+          <br /> <br />
+          <br />
+          <p>
+            <b>NOTE:</b> In instances where a transaction remains incomplete,
+            where the customer has abandoned the transaction midway without
+            redirection or receiving callbacks and webhooks, it is necessary to
+            utilize our GET TRANSACTION STATUS API.
+            <br /> This API facilitates the update of transaction information on
+            your end, ensuring accurate and up-to-date records for such
+            transactions.
           </p>
         </section>
       </div>

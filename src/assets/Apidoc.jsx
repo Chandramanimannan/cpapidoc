@@ -13,17 +13,27 @@ import Webhook from "./apidata/Webhook";
 
 import IntroCode from "./apicode/IntroCode";
 import Integrationcode from "./apicode/Integrationcode";
+import Getdatacode from "./apicode/Getdatacode";
+import Iframecode from "./apicode/Iframecode";
+import Errorrcode from "./apicode/Errorcode";
 
 class Apidoc extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeItem: 0, // Set the default active item to the first one
+      isMenuOpen: true,
     };
   }
 
   handleOptionClick = (index) => {
     this.setState({ activeItem: index });
+  };
+
+  handleToggleMenu = () => {
+    this.setState((prevState) => ({
+      isMenuOpen: !prevState.isMenuOpen,
+    }));
   };
 
   renderSelectedComponent = () => {
@@ -56,11 +66,11 @@ class Apidoc extends Component {
       case 2:
         return <Integrationcode />;
       case 3:
-        return <GetTxndata />;
+        return <Getdatacode />;
       case 4:
-        return <Ifram />;
+        return <Iframecode />;
       case 5:
-        return <Errorcode />;
+        return <Errorrcode />;
       case 6:
         return <Callback />;
       default:
@@ -69,13 +79,13 @@ class Apidoc extends Component {
   };
 
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, isMenuOpen } = this.state;
     const sidebarOptions = [
       "Introduction",
       "Payment Integration",
       "P2P Integration",
       "Get Transaction Data",
-      "Ifram Payment Integration",
+      "Iframe Payment Integration",
       "Error Code",
       "Callback",
       "Webhook",
@@ -86,11 +96,20 @@ class Apidoc extends Component {
         <div className="apicdoc">
           <div className="background"></div>
           <div className="api-body">
-            <div className="api-sidebar">
+            <div className={`api-sidebar ${isMenuOpen ? "open" : ""}`}>
               <div className="api-sidebar-top">
-                <img src={cplogo} alt="Company logo" className="companylogo" />
+                <img
+                  src={cplogo}
+                  alt="Company logo"
+                  className={`companylogo ${isMenuOpen ? "hidden" : ""}`}
+                />
+                <button onClick={() => this.handleToggleMenu()}>
+                  {isMenuOpen ? "<" : ">"}
+                </button>
               </div>
-              <div className="api-sidebar-middle">
+              <div
+                className={`api-sidebar-middle ${isMenuOpen ? "hidden" : ""}`}
+              >
                 <ul>
                   {sidebarOptions.map((option, index) => (
                     <li
@@ -106,7 +125,7 @@ class Apidoc extends Component {
                 </ul>
               </div>
               <div className="api-sidebar-bottom">
-                <p>Sign in</p>
+                <p className={` ${isMenuOpen ? "hidden" : ""}`}>Sign in</p>
               </div>
             </div>
             <span>
