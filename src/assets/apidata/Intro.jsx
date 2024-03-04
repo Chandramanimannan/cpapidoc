@@ -3,7 +3,7 @@ import React from "react";
 const CentPaysAPIInfo = () => {
   return (
     <div className="centpays-container">
-      <h2>Centpays API Documentation</h2>
+      <h2>Introduction</h2>
       <div className="centpays-container-intro">
         <p>
           <b>

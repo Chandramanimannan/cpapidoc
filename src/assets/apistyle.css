@@ -199,7 +199,7 @@ a:hover {
   display: flex;
   justify-content: space-around;
   position: relative;
-  padding-top: 5rem;
+  padding-top: 2rem;
 }
 
 .api-compartment-left {
@@ -210,6 +210,7 @@ a:hover {
 .api-compartment-right {
   height: 100%;
   width: 45%;
+  margin-top: 3.2rem;
 }
 
 /* --------------------------------------- */
@@ -321,7 +322,7 @@ a:hover {
   right: 10px;
 }
 
-.payment-Integration h1 {
+/* .payment-Integration h1 {
   font-size: 1.5rem;
   font-weight: 700;
 }
@@ -331,9 +332,9 @@ a:hover {
 }
 
 .payment-Integraion-body-intro {
-  /* background-color: #007bff; */
+  
   height: 40vh;
-}
+} */
 
 /* ----------------------------------------------------- */
 
@@ -345,16 +346,10 @@ a:hover {
 .centpays-container h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  background-color: #fff;
 }
 
 .centpays-container-intro {
-  height: 70vh;
-  margin-top: 2rem;
-}
-
-.platform-features {
-  /* background-color: floralwhite; */
+  margin: 3rem 0;
 }
 
 .platform-features div {
@@ -363,7 +358,6 @@ a:hover {
 
 .platform-features h3 {
   font-size: 1rem;
-  /* margin-bottom: 1rem; */
 }
 
 .platform-features h4 {
@@ -393,5 +387,4 @@ a:hover {
   position: absolute;
   left: 0;
   top: 10%;
-  /* transform: translateY(-50%); */
 }
