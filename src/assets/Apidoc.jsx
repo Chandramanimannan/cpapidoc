@@ -17,6 +17,7 @@ import Getdatacode from "./apicode/Getdatacode";
 import Iframecode from "./apicode/Iframecode";
 import Errorrcode from "./apicode/Errorcode";
 import Callbackcode from "./apicode/Callbackcode";
+import Webhookcode from "./apicode/Webhook";
 
 class Apidoc extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Apidoc extends Component {
   }
 
   handleOptionClick = (index) => {
+    this.handleToggleMenu();
     this.setState({ activeItem: index });
   };
 
@@ -48,10 +50,10 @@ class Apidoc extends Component {
       case 3:
         return <GetTxndata />;
       case 4:
-        return <Ifram />;
-      case 5:
+        //   return <Ifram />;
+        // case 5:
         return <Errorcode />;
-      case 6:
+      case 5:
         return <Callback />;
       default:
         return <Webhook />;
@@ -69,13 +71,13 @@ class Apidoc extends Component {
       case 3:
         return <Getdatacode />;
       case 4:
-        return <Iframecode />;
-      case 5:
+        //   return <Iframecode />;
+        // case 5:
         return <Errorrcode />;
-      case 6:
+      case 5:
         return <Callbackcode />;
       default:
-        return <Webhook />;
+        return <Webhookcode />;
     }
   };
 
@@ -83,10 +85,10 @@ class Apidoc extends Component {
     const { activeItem, isMenuOpen } = this.state;
     const sidebarOptions = [
       "Introduction",
-      "Payment Integration",
+      "Payment Card Integration",
       "P2P Integration",
       "Get Transaction Data",
-      "Iframe Payment Integration",
+      // "Iframe Payment Integration",
       "Error Code",
       "Callback",
       "Webhook",
