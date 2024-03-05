@@ -16,6 +16,7 @@ import Integrationcode from "./apicode/Integrationcode";
 import Getdatacode from "./apicode/Getdatacode";
 import Iframecode from "./apicode/Iframecode";
 import Errorrcode from "./apicode/Errorcode";
+import Callbackcode from "./apicode/Callbackcode";
 
 class Apidoc extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class Apidoc extends Component {
       case 5:
         return <Errorrcode />;
       case 6:
-        return <Callback />;
+        return <Callbackcode />;
       default:
         return <Webhook />;
     }
