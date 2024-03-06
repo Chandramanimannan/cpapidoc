@@ -1,7 +1,4 @@
 import React, { useRef, useState } from "react";
-import checkimg from "../images/checkmark.png";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function Errorcode() {
   return (
