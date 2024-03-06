@@ -1,7 +1,4 @@
 import React, { useRef, useState } from "react";
-import checkimg from "../images/checkmark.png";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function Errorcode() {
   return (
@@ -15,9 +12,9 @@ function Errorcode() {
           <table>
             <thead>
               <tr>
-                <th>Code</th>
-                <th>Status</th>
-                <th>Description</th>
+                <th>code</th>
+                <th>status</th>
+                <th>description</th>
               </tr>
             </thead>
             <tbody>
