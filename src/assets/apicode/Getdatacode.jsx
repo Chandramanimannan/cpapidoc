@@ -1,10 +1,13 @@
 import React, { useRef, useState } from "react";
 import checkimg from "../images/checkmark.png";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import {
+  a11yDark,
+  solarizedlight,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const codeSnippets = {
-  requestedURL: "POST https://centpays.com/v2/get_transaction",
+  requestedURL: `POST "https://centpays.com/v2/get_transaction"`,
   header: `{
   "api-key": "YOUR_API_KEY",
   "api-secret": "YOUR_API_SECRET",
@@ -39,27 +42,27 @@ const codeSnippets = {
 };
 
 function Getdatacode() {
-  const codeBlockRef = useRef(null);
+  const requestedURLRef = useRef(null);
+  const headerRef = useRef(null);
+  const requestRef = useRef(null);
+  const responseRef = useRef(null);
   const [isCopiedBaseURL, setIsCopiedBaseURL] = useState(false);
-  const [isCopiedPHPcode, setIsCopiedPHPcode] = useState(false);
+  const [isCopiedHeader, setIsCopiedHeader] = useState(false);
+  const [isCopiedRequest, setIsCopiedRequest] = useState(false);
 
-  const handleCopyClick = (snippetName) => {
-    // Handle the specific scenario based on snippetName
-    if (snippetName === "BaseURL") {
-      const range = document.createRange();
-      range.selectNode(codeBlockRef.current);
-      window.getSelection().removeAllRanges();
-      window.getSelection().addRange(range);
-      document.execCommand("copy");
-      window.getSelection().removeAllRanges();
+  const handleCopyClick = (snippetName, ref, setIsCopiedState) => {
+    const range = document.createRange();
+    range.selectNode(ref.current);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();
 
-      // Display "Copied!" message for a short duration
-      setIsCopiedBaseURL(true);
-      setTimeout(() => {
-        setIsCopiedBaseURL(false);
-      }, 1500);
-    }
-    // Add more conditions as needed for other scenarios
+    // Display "Copied!" message for a short duration
+    setIsCopiedState(true);
+    setTimeout(() => {
+      setIsCopiedState(false);
+    }, 1500);
   };
   return (
     <>
@@ -68,7 +71,9 @@ function Getdatacode() {
           <h1>Requested URL</h1>
           <i
             className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick("BaseURL")}
+            onClick={() =>
+              handleCopyClick("BaseURL", requestedURLRef, setIsCopiedBaseURL)
+            }
           ></i>
           {isCopiedBaseURL && (
             <span className="copied-message">
@@ -79,11 +84,11 @@ function Getdatacode() {
             </span>
           )}
         </div>
-        <div className="codeBlock-body" ref={codeBlockRef}>
+        <div className="codeBlock-body" ref={requestedURLRef}>
           <pre>
             <SyntaxHighlighter
               language="ruby"
-              style={solarizedlight}
+              style={a11yDark}
               customStyle={{ background: "transparent", padding: 0 }}
             >
               {codeSnippets.requestedURL}
@@ -97,9 +102,11 @@ function Getdatacode() {
           <h1>Header</h1>
           <i
             className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick("BaseURL")}
+            onClick={() =>
+              handleCopyClick("Header", headerRef, setIsCopiedHeader)
+            }
           ></i>
-          {isCopiedBaseURL && (
+          {isCopiedHeader && (
             <span className="copied-message">
               <p>
                 <img src={checkimg} className="icon" alt="check icon" />
@@ -108,11 +115,11 @@ function Getdatacode() {
             </span>
           )}
         </div>
-        <div className="codeBlock-body" ref={codeBlockRef}>
+        <div className="codeBlock-body" ref={headerRef}>
           <pre>
             <SyntaxHighlighter
               language="json"
-              style={solarizedlight}
+              style={a11yDark}
               customStyle={{ background: "transparent", padding: 0 }}
             >
               {codeSnippets.header}
@@ -126,9 +133,11 @@ function Getdatacode() {
           <h1>Request</h1>
           <i
             className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick("BaseURL")}
+            onClick={() =>
+              handleCopyClick("Request", requestRef, setIsCopiedRequest)
+            }
           ></i>
-          {isCopiedBaseURL && (
+          {isCopiedRequest && (
             <span className="copied-message">
               <p>
                 <img src={checkimg} className="icon" alt="check icon" />
@@ -137,11 +146,11 @@ function Getdatacode() {
             </span>
           )}
         </div>
-        <div className="codeBlock-body" ref={codeBlockRef}>
+        <div className="codeBlock-body" ref={requestRef}>
           <pre>
             <SyntaxHighlighter
               language="json"
-              style={solarizedlight}
+              style={a11yDark}
               customStyle={{ background: "transparent", padding: 0 }}
             >
               {codeSnippets.request}
@@ -153,21 +162,9 @@ function Getdatacode() {
       <div className="textBlock">
         <div className="textBlock-header">
           <h1>Response</h1>
-          {/* <i
-            className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick("BaseURL")}
-          ></i>
-          {isCopiedBaseURL && (
-            <span className="copied-message">
-              <p>
-                <img src={checkimg} className="icon" alt="check icon" />
-                Copied!
-              </p>
-            </span>
-          )} */}
         </div>
 
-        <div className="textBlock-body" ref={codeBlockRef}>
+        <div className="textBlock-body" ref={responseRef}>
           <pre>
             <SyntaxHighlighter
               language="json"

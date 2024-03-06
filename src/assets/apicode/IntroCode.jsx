@@ -1,7 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import checkimg from "../images/checkmark.png";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import {
+  a11yDark,
+  solarizedlight,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
 import ruby from "../images/ruby.png";
 import python from "../images/python.png";
 import php from "../images/php.png";
@@ -11,7 +14,7 @@ import net from "../images/net.png";
 import react from "../images/react.png";
 
 const codeSnippets = {
-  baseUrl: "https://centpays.com",
+  baseUrl: `"https://centpays.com"`,
   ruby: `require 'net/http'
 require 'json'
   
@@ -374,24 +377,34 @@ const IntroCode = () => {
   const [isCopiedCode, setIsCopiedCode] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState();
 
-  const handleCopyClick = (contentRef) => {
-    if (contentRef) {
+  useEffect(() => {
+    const initialStatus = supportedLanguages.reduce((acc, language) => {
+      acc[language.id] = false;
+      return acc;
+    }, {});
+    setIsCopiedCode(initialStatus);
+    setSelectedLanguage("ruby");
+  }, []);
+
+  const handleCopyClick = (contentRef, languageId) => {
+    if (contentRef && contentRef.current) {
       navigator.clipboard
         .writeText(contentRef.current.textContent)
         .then(() => {
-          setIsCopiedCode(true);
+          setIsCopiedCode((prevStatus) => ({
+            ...prevStatus,
+            [languageId]: true,
+          }));
           setTimeout(() => {
-            setIsCopiedCode(false);
+            setIsCopiedCode((prevStatus) => ({
+              ...prevStatus,
+              [languageId]: false,
+            }));
           }, 1500);
         })
         .catch((error) => console.error("Error copying to clipboard:", error));
     }
   };
-
-  useEffect(() => {
-    // Set default language to Ruby when component mounts
-    setSelectedLanguage("ruby");
-  }, []);
 
   return (
     <>
@@ -401,9 +414,9 @@ const IntroCode = () => {
           <h1>BASE URL</h1>
           <i
             className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick(baseUrlRef)}
+            onClick={() => handleCopyClick(baseUrlRef, "baseUrl")}
           ></i>
-          {isCopiedCode && (
+          {isCopiedCode["baseUrl"] && (
             <span className="copied-message">
               <p>
                 <img src={checkimg} className="icon" alt="check icon" />
@@ -413,7 +426,15 @@ const IntroCode = () => {
           )}
         </div>
         <div className="codeBlock-body" ref={baseUrlRef}>
-          <p>{codeSnippets.baseUrl}</p>
+          <pre>
+            <SyntaxHighlighter
+              language="http"
+              style={a11yDark}
+              customStyle={{ background: "transparent", padding: 0 }}
+            >
+              {codeSnippets.baseUrl}
+            </SyntaxHighlighter>
+          </pre>
         </div>
       </div>
 
@@ -435,7 +456,7 @@ const IntroCode = () => {
           </ul>
         </div>
         <div className="textBlock-body" ref={codeBlockRef}>
-          {isCopiedCode && (
+          {isCopiedCode[selectedLanguage] && (
             <span className="copied-message">
               <p>
                 <img src={checkimg} className="icon" alt="check icon" />
@@ -445,11 +466,15 @@ const IntroCode = () => {
           )}
           <div className="textBlock-body-copyHeading">
             {selectedLanguage && (
-              <p onClick={() => handleCopyClick(codeBlockRef)}>
+              <p
+                onClick={() => handleCopyClick(codeBlockRef, selectedLanguage)}
+              >
                 CENTPAYS - {selectedLanguage.toUpperCase()}{" "}
                 <i
                   className="fa-regular fa-clipboard"
-                  onClick={() => handleCopyClick(codeBlockRef)}
+                  onClick={() =>
+                    handleCopyClick(codeBlockRef, selectedLanguage)
+                  }
                 ></i>
               </p>
             )}
