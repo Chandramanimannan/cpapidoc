@@ -388,21 +388,24 @@ const IntroCode = () => {
 
   const handleCopyClick = (contentRef, languageId) => {
     if (contentRef && contentRef.current) {
-      navigator.clipboard
-        .writeText(contentRef.current.textContent)
-        .then(() => {
-          setIsCopiedCode((prevStatus) => ({
-            ...prevStatus,
-            [languageId]: true,
-          }));
-          setTimeout(() => {
-            setIsCopiedCode((prevStatus) => ({
-              ...prevStatus,
-              [languageId]: false,
-            }));
-          }, 1500);
-        })
-        .catch((error) => console.error("Error copying to clipboard:", error));
+      const range = document.createRange();
+      range.selectNode(contentRef.current);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      window.getSelection().removeAllRanges();
+
+      setIsCopiedCode((prevStatus) => ({
+        ...prevStatus,
+        [languageId]: true,
+      }));
+
+      setTimeout(() => {
+        setIsCopiedCode((prevStatus) => ({
+          ...prevStatus,
+          [languageId]: false,
+        }));
+      }, 1500);
     }
   };
 
