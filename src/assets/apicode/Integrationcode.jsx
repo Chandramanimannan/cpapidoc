@@ -1,10 +1,13 @@
 import React, { useRef, useState } from "react";
 import checkimg from "../images/checkmark.png";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import {
+  a11yDark,
+  solarizedlight,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const codeSnippets = {
-  requestedURL: "POST https://centpays.com/v2/process_payment",
+  requestedURL: `POST https://centpays.com/v2/process_payment`,
   header: `{
   "api-key": "YOUR_API_KEY",
   "api-secret": "YOUR_API_SECRET",
@@ -55,27 +58,29 @@ cardExpire = cardExpire should be YYMM like 2505 (2025 May 5)`,
 };
 
 function Integrationcode() {
-  const codeBlockRef = useRef(null);
-  const [isCopiedBaseURL, setIsCopiedBaseURL] = useState(false);
-  const [isCopiedPHPcode, setIsCopiedPHPcode] = useState(false);
+  const requestedURLRef = useRef(null);
+  const headerRef = useRef(null);
+  const requestRef = useRef(null);
+  const responseRef = useRef(null);
+  const callbackResponseRef = useRef(null);
 
-  const handleCopyClick = (snippetName) => {
-    // Handle the specific scenario based on snippetName
-    if (snippetName === "BaseURL") {
-      const range = document.createRange();
-      range.selectNode(codeBlockRef.current);
-      window.getSelection().removeAllRanges();
-      window.getSelection().addRange(range);
-      document.execCommand("copy");
-      window.getSelection().removeAllRanges();
+  const [isCopiedRequestedURL, setIsCopiedRequestedURL] = useState(false);
+  const [isCopiedHeader, setIsCopiedHeader] = useState(false);
+  const [isCopiedRequest, setIsCopiedRequest] = useState(false);
 
-      // Display "Copied!" message for a short duration
-      setIsCopiedBaseURL(true);
-      setTimeout(() => {
-        setIsCopiedBaseURL(false);
-      }, 1500);
-    }
-    // Add more conditions as needed for other scenarios
+  const handleCopyClick = (snippetName, ref, setIsCopiedState) => {
+    const range = document.createRange();
+    range.selectNode(ref.current);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();
+
+    // Display "Copied!" message for a short duration
+    setIsCopiedState(true);
+    setTimeout(() => {
+      setIsCopiedState(false);
+    }, 1500);
   };
   return (
     <>
@@ -84,9 +89,15 @@ function Integrationcode() {
           <h1>Requested URL</h1>
           <i
             className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick("BaseURL")}
+            onClick={() =>
+              handleCopyClick(
+                "RequestedURL",
+                requestedURLRef,
+                setIsCopiedRequestedURL
+              )
+            }
           ></i>
-          {isCopiedBaseURL && (
+          {isCopiedRequestedURL && (
             <span className="copied-message">
               <p>
                 <img src={checkimg} className="icon" alt="check icon" />
@@ -95,11 +106,11 @@ function Integrationcode() {
             </span>
           )}
         </div>
-        <div className="codeBlock-body" ref={codeBlockRef}>
+        <div className="codeBlock-body" ref={requestedURLRef}>
           <pre>
             <SyntaxHighlighter
-              language="ruby"
-              style={solarizedlight}
+              language="http"
+              style={a11yDark}
               customStyle={{ background: "transparent", padding: 0 }}
             >
               {codeSnippets.requestedURL}
@@ -113,9 +124,11 @@ function Integrationcode() {
           <h1>Header</h1>
           <i
             className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick("BaseURL")}
+            onClick={() =>
+              handleCopyClick("Header", headerRef, setIsCopiedHeader)
+            }
           ></i>
-          {isCopiedBaseURL && (
+          {isCopiedHeader && (
             <span className="copied-message">
               <p>
                 <img src={checkimg} className="icon" alt="check icon" />
@@ -124,11 +137,11 @@ function Integrationcode() {
             </span>
           )}
         </div>
-        <div className="codeBlock-body" ref={codeBlockRef}>
+        <div className="codeBlock-body" ref={headerRef}>
           <pre>
             <SyntaxHighlighter
               language="json"
-              style={solarizedlight}
+              style={a11yDark}
               customStyle={{ background: "transparent", padding: 0 }}
             >
               {codeSnippets.header}
@@ -142,9 +155,11 @@ function Integrationcode() {
           <h1>Request</h1>
           <i
             className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick("BaseURL")}
+            onClick={() =>
+              handleCopyClick("Request", requestRef, setIsCopiedRequest)
+            }
           ></i>
-          {isCopiedBaseURL && (
+          {isCopiedRequest && (
             <span className="copied-message">
               <p>
                 <img src={checkimg} className="icon" alt="check icon" />
@@ -153,11 +168,11 @@ function Integrationcode() {
             </span>
           )}
         </div>
-        <div className="codeBlock-body" ref={codeBlockRef}>
+        <div className="codeBlock-body" ref={requestRef}>
           <pre>
             <SyntaxHighlighter
               language="json"
-              style={solarizedlight}
+              style={a11yDark}
               customStyle={{ background: "transparent", padding: 0 }}
             >
               {codeSnippets.request}
@@ -169,21 +184,9 @@ function Integrationcode() {
       <div className="textBlock">
         <div className="textBlock-header">
           <h1>Response</h1>
-          {/* <i
-            className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick("BaseURL")}
-          ></i>
-          {isCopiedBaseURL && (
-            <span className="copied-message">
-              <p>
-                <img src={checkimg} className="icon" alt="check icon" />
-                Copied!
-              </p>
-            </span>
-          )} */}
         </div>
 
-        <div className="textBlock-body" ref={codeBlockRef}>
+        <div className="textBlock-body" ref={responseRef}>
           <pre>
             <SyntaxHighlighter
               language="json"
@@ -199,20 +202,8 @@ function Integrationcode() {
       <div className="textBlock">
         <div className="textBlock-header">
           <h1>Callback Response</h1>
-          {/* <i
-            className="fa-regular fa-clipboard"
-            onClick={() => handleCopyClick("BaseURL")}
-          ></i>
-          {isCopiedBaseURL && (
-            <span className="copied-message">
-              <p>
-                <img src={checkimg} className="icon" alt="check icon" />
-                Copied!
-              </p>
-            </span>
-          )} */}
         </div>
-        <div className="textBlock-body" ref={codeBlockRef}>
+        <div className="textBlock-body" ref={callbackResponseRef}>
           <pre>
             <SyntaxHighlighter
               language="json"

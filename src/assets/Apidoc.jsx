@@ -107,7 +107,7 @@ class Apidoc extends Component {
                   className={`companylogo ${isMenuOpen ? "hidden" : ""}`}
                 />
                 <button onClick={() => this.handleToggleMenu()}>
-                  {isMenuOpen ? "<" : ">"}
+                  {isMenuOpen ? ">" : "<"}
                 </button>
               </div>
               <div
