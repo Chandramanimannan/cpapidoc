@@ -12,9 +12,9 @@ function Errorcode() {
           <table>
             <thead>
               <tr>
-                <th>code</th>
-                <th>status</th>
-                <th>description</th>
+                <th>Code</th>
+                <th>Status</th>
+                <th>Description</th>
               </tr>
             </thead>
             <tbody>
