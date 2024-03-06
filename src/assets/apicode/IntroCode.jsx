@@ -387,7 +387,7 @@ const IntroCode = () => {
   }, []);
 
   const handleCopyClick = (contentRef, languageId) => {
-    if (contentRef) {
+    if (contentRef && contentRef.current) {
       navigator.clipboard
         .writeText(contentRef.current.textContent)
         .then(() => {
